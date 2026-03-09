@@ -1,12 +1,18 @@
+const isMobile = window.innerWidth < 768
 document.addEventListener('DOMContentLoaded', () => {
-    initCursorGlow();
-    initHeroCanvas();
-    initHorizontalScroll();
+
+    if(!isMobile){
+        initCursorGlow();
+        initHeroCanvas();
+        initHorizontalScroll();
+        initLiveChart();
+    }
+
     initCounters();
     initInteractions();
-    initLiveChart();
-});
+    initMobileMenu();
 
+});
 /**
  * Cursor Spotlight Effect
  */
@@ -29,8 +35,10 @@ function initCursorGlow() {
  * Hero Background Canvas (Data Nodes & Lines)
  */
 function initHeroCanvas() {
-    const canvas = document.getElementById('hero-canvas');
-    const ctx = canvas.getContext('2d');
+   const canvas = document.getElementById('hero-canvas');
+if(!canvas) return
+
+const ctx = canvas.getContext('2d');
     let width, height;
     let particles = [];
 
@@ -136,7 +144,7 @@ function initCounters() {
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const target = parseInt(entry.target.getAttribute('data-target'));
+                const target = Number(entry.target.dataset.target);
                 animateCounter(entry.target, target);
                 counterObserver.unobserve(entry.target);
             }
@@ -278,4 +286,28 @@ function initInteractions() {
             }
         });
     });
+}
+function initMobileMenu(){
+
+    const menuToggle = document.querySelector(".menu-toggle")
+    const navLinks = document.querySelector(".nav-links")
+
+    if(!menuToggle || !navLinks) return
+
+    menuToggle.addEventListener("click", () => {
+
+        navLinks.classList.toggle("active")
+
+    })
+
+}
+
+if(menuToggle){
+
+menuToggle.addEventListener("click", () => {
+
+navLinks.classList.toggle("active")
+
+})
+
 }

@@ -1,3 +1,22 @@
+:root {
+
+--bg-deep:#0B0F19;
+--bg-card:rgba(255,255,255,0.03);
+--bg-card-hover:rgba(255,255,255,0.06);
+
+--border-glass:rgba(255,255,255,0.1);
+
+--neon-blue:#00D4FF;
+--neon-cyan:#00F5FF;
+--neon-violet:#8B5CF6;
+
+--text-primary:#FFFFFF;
+--text-secondary:#94A3B8;
+
+--container-width:1200px;
+--nav-height:80px;
+
+}
 /* =========================
    DESIGN SYSTEM VARIABLES
 ========================= */
@@ -332,6 +351,52 @@ display:none;
 
 .section-title{
 font-size:2rem;
+}
+
+}
+/* =========================
+   MOBILE NAVBAR
+========================= */
+
+.menu-toggle{
+display:none;
+font-size:28px;
+cursor:pointer;
+color:var(--text-primary);
+}
+
+/* mobile layout */
+
+@media (max-width:768px){
+
+.nav-links{
+
+display:none;
+
+position:absolute;
+
+top:var(--nav-height);
+
+left:0;
+
+width:100%;
+
+background:var(--bg-deep);
+
+flex-direction:column;
+
+padding:20px;
+
+gap:20px;
+
+}
+
+.nav-links.active{
+display:flex;
+}
+
+.menu-toggle{
+display:block;
 }
 
 }
