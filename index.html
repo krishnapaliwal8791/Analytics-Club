@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,46 +8,34 @@
     <!-- Modern Tech Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Sora:wght@400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/home.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Sora:wght@400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
+
 <body class="deep-analytics">
-    <!-- PRELOADER -->
-
-<div id="preloader">
-
-    <div class="loader-content">
-
-        <div class="logo-spinner">
-            📊
-        </div>
-
-        <div class="progress-bar">
-            <div class="progress"></div>
-        </div>
-
-    </div>
-
-</div>
     <!-- Cursor Spotlight Effect -->
     <div id="cursor-glow"></div>
 
-    <!-- Navigation -->
-    <div id="navbar"></div>
+    <!-- Navigation Placeholder -->
+    <div id="navbar-container"></div>
 
     <main>
         <!-- Hero Section -->
         <section id="hero" class="hero-section">
             <div class="grid-background"></div>
             <canvas id="hero-canvas"></canvas>
-            
+
             <div class="container hero-content">
                 <div class="hero-text-wrapper translate-z">
                     <h1 class="hero-title animate-in">Turning Data Into <span class="gradient-text">Insight</span></h1>
-                    <p class="hero-subtitle animate-in">Empowering the next generation of data scientists and researchers at the forefront of the intelligence revolution.</p>
+                    <p class="hero-subtitle animate-in">Empowering the next generation of data scientists and
+                        researchers at the forefront of the intelligence revolution.</p>
                     <div class="hero-actions animate-in">
                         <a href="#join" class="btn-primary">Join the Club</a>
-                        <a href="#events" class="btn-secondary">Explore Events</a>
+                        <a href="events.html" class="btn-secondary">Explore Events</a>
                     </div>
                 </div>
 
@@ -73,7 +62,8 @@
                         <div class="card-value">2.4<span class="unit">TB/s</span></div>
                         <div class="mini-chart line-chart">
                             <svg viewBox="0 0 100 40">
-                                <path d="M0 35 Q 20 10, 40 25 T 80 5 T 100 20" fill="none" stroke="var(--neon-cyan)" stroke-width="2" />
+                                <path d="M0 35 Q 20 10, 40 25 T 80 5 T 100 20" fill="none" stroke="var(--neon-cyan)"
+                                    stroke-width="2" />
                             </svg>
                         </div>
                     </div>
@@ -94,8 +84,10 @@
                 <div class="about-text reveal-left">
                     <h2 class="section-tag">About Us</h2>
                     <h3 class="section-title">The Epicenter of Data Excellence</h3>
-                    <p>We are a community of curious minds dedicated to unraveling complexity through data. Our mission is to bridge the gap between academic theory and industry application through hands-on projects and research.</p>
-                    
+                    <p>We are a community of curious minds dedicated to unraveling complexity through data. Our mission
+                        is to bridge the gap between academic theory and industry application through hands-on projects
+                        and research.</p>
+
                     <div class="feature-grid">
                         <div class="feature-card glass">
                             <div class="icon">🔬</div>
@@ -148,7 +140,7 @@
                         <!-- Event Card 1 -->
                         <div class="event-card glass">
                             <div class="card-img">
-                                <img src="/assets/images/event1.jpg" alt="Data Summit">
+                                <img src="assets/images/event1.jpg" alt="Data Summit">
                                 <div class="card-glow"></div>
                             </div>
                             <div class="card-info">
@@ -160,7 +152,7 @@
                         <!-- Event Card 2 -->
                         <div class="event-card glass">
                             <div class="card-img">
-                                <img src="/assets/images/event2.jpg" alt="Hackathon">
+                                <img src="assets/images/event2.jpg" alt="Hackathon">
                                 <div class="card-glow"></div>
                             </div>
                             <div class="card-info">
@@ -172,7 +164,7 @@
                         <!-- Event Card 3 -->
                         <div class="event-card glass">
                             <div class="card-img">
-                                <img src="/assets/images/event3.jpg" alt="ML Workshop">
+                                <img src="assets/images/event3.jpg" alt="ML Workshop">
                                 <div class="card-glow"></div>
                             </div>
                             <div class="card-info">
@@ -181,10 +173,10 @@
                                 <p>Scaling intelligence from notebook to production at enterprise scale.</p>
                             </div>
                         </div>
-                         <!-- Event Card 4 -->
-                         <div class="event-card glass">
+                        <!-- Event Card 4 -->
+                        <div class="event-card glass">
                             <div class="card-img">
-                                <img src="/assets/images/event4.jpg" alt="Research Night">
+                                <img src="assets/images/event4.jpg" alt="Research Night">
                                 <div class="card-glow"></div>
                             </div>
                             <div class="card-info">
@@ -257,22 +249,30 @@
                     <div class="achievement-item">
                         <div class="stat-value counter" data-target="50">0</div>
                         <div class="stat-label">Hackathon Wins</div>
-                        <div class="mini-bar-track"><div class="mini-bar" style="width: 85%"></div></div>
+                        <div class="mini-bar-track">
+                            <div class="mini-bar" style="width: 85%"></div>
+                        </div>
                     </div>
                     <div class="achievement-item">
                         <div class="stat-value counter" data-target="15">0</div>
                         <div class="stat-label">Research Papers</div>
-                        <div class="mini-bar-track"><div class="mini-bar" style="width: 60%"></div></div>
+                        <div class="mini-bar-track">
+                            <div class="mini-bar" style="width: 60%"></div>
+                        </div>
                     </div>
                     <div class="achievement-item">
                         <div class="stat-value counter" data-target="120">0</div>
                         <div class="stat-label">Industry Partners</div>
-                        <div class="mini-bar-track"><div class="mini-bar" style="width: 75%"></div></div>
+                        <div class="mini-bar-track">
+                            <div class="mini-bar" style="width: 75%"></div>
+                        </div>
                     </div>
                     <div class="achievement-item">
                         <div class="stat-value counter" data-target="5">0</div>
                         <div class="stat-label">Years of Excellence</div>
-                        <div class="mini-bar-track"><div class="mini-bar" style="width: 100%"></div></div>
+                        <div class="mini-bar-track">
+                            <div class="mini-bar" style="width: 100%"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -283,19 +283,21 @@
             <div class="container glass cta-inner">
                 <div class="glow-bg"></div>
                 <h2 class="reveal-up">Join the Data Revolution</h2>
-                <p class="reveal-up">Unlock your potential and contribute to the future of intelligence. Membership applications are now open.</p>
+                <p class="reveal-up">Unlock your potential and contribute to the future of intelligence. Membership
+                    applications are now open.</p>
                 <div class="cta-btns reveal-up">
                     <a href="#" class="btn-primary-glowing">Become a Member</a>
-                    <a href="#" class="btn-outline">View Community</a>
+                    <a href="#" class="btn-primary-glowing">View Community</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <div id="footer"></div>
+    <!-- Footer Placeholder -->
+    <div id="footer-container"></div>
 
-    <script src="/js/components.js"></script>
-    <script src="/js/home.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/script.js"></script>
 </body>
+
 </html>

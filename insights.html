@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights | Analytics Club</title>
+    <!-- Modern Tech Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Sora:wght@400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body class="deep-analytics">
+    <!-- Cursor Spotlight Effect -->
+    <div id="cursor-glow"></div>
+
+    <!-- Navigation Placeholder -->
+    <div id="navbar-container"></div>
+
+    <main>
+        <!-- Live Data Visualization Section -->
+        <section id="analytics" class="analytics-section" style="padding-top: 15rem;">
+            <div class="container">
+                <div class="section-header center">
+                    <h2 class="section-tag">📊 Analytics in Action</h2>
+                    <h3 class="section-title">Visualizing the Intelligence</h3>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="main-viz-card glass reveal-up active">
+                        <div class="viz-header">
+                            <h4>Real-time Processing Flux</h4>
+                            <div class="viz-legend">
+                                <span><i class="dot blue"></i> Ingested</span>
+                                <span><i class="dot cyan"></i> Processed</span>
+                            </div>
+                        </div>
+                        <div class="canvas-container">
+                            <canvas id="live-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="stats-sidebar">
+                        <div class="stat-card glass reveal-right active" data-delay="0.1">
+                            <div class="stat-icon">💾</div>
+                            <div class="stat-info">
+                                <span class="label">Data Processed</span>
+                                <div class="value counter" data-target="1520">0</div>
+                                <span class="unit">Gigabytes</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass reveal-right active" data-delay="0.2">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-info">
+                                <span class="label">Active Members</span>
+                                <div class="value counter" data-target="450">0</div>
+                                <span class="unit">Scientists</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass reveal-right active" data-delay="0.3">
+                            <div class="stat-icon">🚀</div>
+                            <div class="stat-info">
+                                <span class="label">Projects Running</span>
+                                <div class="value counter" data-target="28">0</div>
+                                <span class="unit">Live Models</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-container"></div>
+
+    <script src="js/components.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
