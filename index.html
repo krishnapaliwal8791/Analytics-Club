@@ -16,6 +16,16 @@
 </head>
 
 <body class="deep-analytics">
+    <!-- PRELOADER -->
+    <!-- <div id="preloader">
+        <div class="loader-content">
+            <div class="logo-spinner">📊</div>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+    </div> -->
+
     <!-- Cursor Spotlight Effect -->
     <div id="cursor-glow"></div>
 
@@ -34,8 +44,8 @@
                     <p class="hero-subtitle animate-in">Empowering the next generation of data scientists and
                         researchers at the forefront of the intelligence revolution.</p>
                     <div class="hero-actions animate-in">
-                        <a href="https://forms.gle/pEEcrRnrTD1Wa6WbA" class="btn-primary" target="_blank">Register for event</a>
-                        <a href="events.html" class="btn-secondary">Know more about Events</a>
+                        <a href="https://forms.gle/pEEcrRnrTD1Wa6WbA" class="btn-primary">Register for event</a>
+                        <a href="events.html" class="btn-secondary">Know more about event</a>
                     </div>
                 </div>
 
@@ -74,8 +84,8 @@
                         <div class="wheel"></div>
                     </div>
                     <span>Scroll to Explore</span>
-                </div>
-            </div> -->
+                </div> -->
+            </div>
         </section>
 
         <!-- About Section -->
@@ -113,7 +123,6 @@
                 </div>
                 <div class="about-visual reveal-right">
                     <div class="visual-wrapper glass">
-                        <!-- Dynamic Analytics Mesh or Image -->
                         <div class="analytics-cube">
                             <div class="side front"></div>
                             <div class="side back"></div>
@@ -128,64 +137,44 @@
             </div>
         </section>
 
-        <!-- Horizontal Scroll Events Section -->
-        <section id="events" class="horizontal-scroll-container">
-            <div class="sticky-wrapper">
-                <div class="scroll-content">
-                    <div class="section-intro">
-                        <h2 class="section-tag">Events</h2>
-                        <h3 class="section-title">Upcoming Frontiers</h3>
-                    </div>
-                    <div class="event-cards-track">
-                        <!-- Event Card 1 -->
-                        <div class="event-card glass">
-                            <div class="card-img">
-                                <img src="assets/images/event1.jpg" alt="Data Summit">
-                                <div class="card-glow"></div>
-                            </div>
-                            <div class="card-info">
-                                <span class="card-date">March 15, 2026</span>
-                                <h4>Global Data Summit</h4>
-                                <p>Join top industry leaders for a day of intensive workshops and networking.</p>
-                            </div>
+        <!-- Horizontal Scroll Events Section (Summary for Index) -->
+        <section id="events-grid" class="analytics-section">
+            <div class="container">
+                <div class="section-header center">
+                    <h2 class="section-tag">Upcoming Events</h2>
+                    <h3 class="section-title">Frontiers of Intelligence</h3>
+                </div>
+                <div class="event-cards-track"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <!-- Event Summary 1 -->
+                    <div class="event-card glass" style="min-width: 0; height: auto;">
+                        <div class="card-img" style="height: 200px;">
+                            <img src="assets/images/event1.jpg" alt="Data Summit">
+                            <div class="card-glow"></div>
                         </div>
-                        <!-- Event Card 2 -->
-                        <div class="event-card glass">
-                            <div class="card-img">
-                                <img src="assets/images/event2.jpg" alt="Hackathon">
-                                <div class="card-glow"></div>
-                            </div>
-                            <div class="card-info">
-                                <span class="card-date">April 02, 2026</span>
-                                <h4>Deep Learning Hackathon</h4>
-                                <p>48 hours of non-stop building. $10k in prizes for the most innovative models.</p>
-                            </div>
-                        </div>
-                        <!-- Event Card 3 -->
-                        <div class="event-card glass">
-                            <div class="card-img">
-                                <img src="assets/images/event3.jpg" alt="ML Workshop">
-                                <div class="card-glow"></div>
-                            </div>
-                            <div class="card-info">
-                                <span class="card-date">May 10, 2026</span>
-                                <h4>MLOps Masterclass</h4>
-                                <p>Scaling intelligence from notebook to production at enterprise scale.</p>
-                            </div>
-                        </div>
-                        <!-- Event Card 4 -->
-                        <div class="event-card glass">
-                            <div class="card-img">
-                                <img src="assets/images/event4.jpg" alt="Research Night">
-                                <div class="card-glow"></div>
-                            </div>
-                            <div class="card-info">
-                                <span class="card-date">June 05, 2026</span>
-                                <h4>AI Research Symposium</h4>
-                                <p>Present your findings to the faculty and win publication sponsorship.</p>
-                            </div>
+                        <div class="card-info">
+                            <span class="card-date">March 15, 2026</span>
+                            <h4>Global Data Summit</h4>
+                            <a href="events.html" class="btn-secondary"
+                                style="margin-top: 1rem; padding: 0.5rem 1rem;">Details</a>
                         </div>
                     </div>
+                    <!-- Event Summary 2 -->
+                    <div class="event-card glass" style="min-width: 0; height: auto;">
+                        <div class="card-img" style="height: 200px;">
+                            <img src="assets/images/event2.jpg" alt="Hackathon">
+                            <div class="card-glow"></div>
+                        </div>
+                        <div class="card-info">
+                            <span class="card-date">April 02, 2026</span>
+                            <h4>Deep Learning Hackathon</h4>
+                            <a href="events.html" class="btn-secondary"
+                                style="margin-top: 1rem; padding: 0.5rem 1rem;">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="center" style="margin-top: 3rem;">
+                    <a href="events.html" class="btn-primary">View All Events</a>
                 </div>
             </div>
         </section>
@@ -286,8 +275,8 @@
                 <p class="reveal-up">Unlock your potential and contribute to the future of intelligence. Membership
                     applications are now open.</p>
                 <div class="cta-btns reveal-up">
-                    <a href="#" class="btn-primary-glowing">Become a Member</a>
-                    <a href="#" class="btn-primary-glowing">View Community</a>
+                    <a href="register.html" class="btn-primary-glowing">Become a Member</a>
+                    <a href="about.html" class="btn-primary-glowing">Learn More</a>
                 </div>
             </div>
         </section>

@@ -140,6 +140,7 @@ img {
     gap: 0.8rem;
     font-size: 1.5rem;
     z-index: 1001;
+    flex-shrink: 0;
     /* Stay above mobile menu */
 }
 
@@ -152,6 +153,11 @@ img {
     list-style: none;
     gap: 2.5rem;
     align-items: center;
+    flex-wrap: nowrap;
+}
+
+.nav-links li{
+    white-space: nowrap;
 }
 
 .nav-links a {
@@ -205,6 +211,8 @@ img {
     color: var(--bg-deep) !important;
     padding: 0.6rem 1.2rem;
     border-radius: 50px;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 .btn-primary {
@@ -432,4 +440,12 @@ img {
         width: 100%;
         text-align: center;
     }
+}
+
+.logo-icon{
+width:36px;
+height:36px;
+object-fit:cover;
+border-radius: 50%;
+display:block;
 }

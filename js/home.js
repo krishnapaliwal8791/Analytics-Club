@@ -25,7 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initCounters();
     initInteractions();
+<<<<<<<< HEAD:js/script.js
+    initLiveChart();
+
+    // Re-init for components
+    window.addEventListener('componentsLoaded', () => {
+        initInteractions();
+    });
+});
+========
     initMobileMenu();
+>>>>>>>> c85f189db082c187d2b358dab1b133fb6b63feae:js/home.js
 
 });
 /**
@@ -36,13 +46,13 @@ function initCursorGlow() {
     document.addEventListener('mousemove', (e) => {
         const x = e.clientX;
         const y = e.clientY;
-        
+
         // Update CSS variables for radial gradient center
         document.documentElement.style.setProperty('--mouse-x', `${(x / window.innerWidth) * 100}%`);
         document.documentElement.style.setProperty('--mouse-y', `${(y / window.innerHeight) * 100}%`);
-        
+
         // Move the glow element
-        glow.style.transform = `translate(${x - window.innerWidth/2}px, ${y - window.innerHeight/2}px)`;
+        glow.style.transform = `translate(${x - window.innerWidth / 2}px, ${y - window.innerHeight / 2}px)`;
     });
 }
 
@@ -137,17 +147,30 @@ function initHorizontalScroll() {
     const container = document.querySelector('.horizontal-scroll-container');
     const stickyWrapper = document.querySelector('.sticky-wrapper');
     const scrollContent = document.querySelector('.scroll-content');
-    
+
     window.addEventListener('scroll', () => {
+        // Disable scroll logic on mobile screens since it stacks vertically
+        if (window.innerWidth <= 768) {
+            scrollContent.style.transform = 'none';
+            return;
+        }
+
         const offsetTop = container.offsetTop;
         const scrollY = window.pageYOffset;
         const windowHeight = window.innerHeight;
         const containerHeight = container.offsetHeight;
-        
+
         if (scrollY >= offsetTop && scrollY <= offsetTop + containerHeight - windowHeight) {
             const percentage = (scrollY - offsetTop) / (containerHeight - windowHeight);
             const scrollWidth = scrollContent.scrollWidth - window.innerWidth + (window.innerWidth * 0.2); // Add some padding
             scrollContent.style.transform = `translateX(-${percentage * scrollWidth}px)`;
+        }
+    });
+
+    // Reset styles on resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth <= 768) {
+            scrollContent.style.transform = 'none';
         }
     });
 }
@@ -164,7 +187,7 @@ function initCounters() {
                 counterObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.counter').forEach(counter => {
         counterObserver.observe(counter);
@@ -174,7 +197,7 @@ function initCounters() {
         let current = 0;
         const duration = 2000; // 2 seconds
         const stepTime = Math.abs(Math.floor(duration / target));
-        
+
         const timer = setInterval(() => {
             current += Math.ceil(target / 100);
             if (current >= target) {
@@ -195,7 +218,7 @@ function initLiveChart() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let width, height;
-    
+
     let dataPointsBlue = Array(30).fill(40).map(() => Math.random() * 50 + 20);
     let dataPointsCyan = Array(30).fill(50).map(() => Math.random() * 40 + 40);
 
@@ -233,14 +256,14 @@ function initLiveChart() {
     function updateData() {
         dataPointsBlue.shift();
         dataPointsBlue.push(Math.max(10, Math.min(90, dataPointsBlue[dataPointsBlue.length - 1] + (Math.random() - 0.5) * 10)));
-        
+
         dataPointsCyan.shift();
         dataPointsCyan.push(Math.max(10, Math.min(90, dataPointsCyan[dataPointsCyan.length - 1] + (Math.random() - 0.5) * 12)));
     }
 
     function render() {
         ctx.clearRect(0, 0, width, height);
-        
+
         // Draw grid
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
         ctx.lineWidth = 1;
@@ -254,7 +277,7 @@ function initLiveChart() {
 
         drawLine(dataPointsBlue, '#00D4FF');
         drawLine(dataPointsCyan, '#00F5FF');
-        
+
         updateData();
         setTimeout(() => requestAnimationFrame(render), 100);
     }
@@ -287,19 +310,44 @@ function initInteractions() {
         '.feature-card'
     ];
 
+    // Check elements immediately for pages where they might already be in view
+    function checkReveal() {
+        elementsToReveal.forEach(selector => {
+            document.querySelectorAll(selector).forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                    el.classList.add('active');
+                    if (el.getAttribute('data-delay')) {
+                        el.style.transitionDelay = el.getAttribute('data-delay') + 's';
+                    }
+                }
+            });
+        });
+    }
+
     elementsToReveal.forEach(selector => {
         document.querySelectorAll(selector).forEach(el => revealObserver.observe(el));
     });
 
-    // Handle smooth anchor scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+    document.querySelectorAll('.counter').forEach(counter => {
+        counterObserver.observe(counter);
+    });
+
+    // Initial check
+    checkReveal();
+
+    // Handle smooth anchor scrolling via delegation
+    document.addEventListener('click', function (e) {
+        const anchor = e.target.closest('a[href^="#"]');
+        if (anchor) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const targetId = anchor.getAttribute('href');
+            if (targetId === '#') return;
+            const target = document.querySelector(targetId);
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });
             }
-        });
+        }
     });
 }
 function initMobileMenu(){

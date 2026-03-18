@@ -336,10 +336,11 @@
 .scroll-content {
     display: flex;
     align-items: center;
-    padding: 0 10vw;
+    padding: 0 5rem;
     gap: 5vw;
     transition: transform 0.1s linear;
     will-change: transform;
+    max-width: 100vw;
 }
 
 .section-intro {
