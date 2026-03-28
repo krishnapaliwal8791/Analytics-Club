@@ -1,0 +1,57 @@
+/* HERO override */
+.rounds-hero {
+    height: auto;
+    padding: 6rem 0 3rem;
+}
+
+/* SUBTEXT */
+.rounds-subtext {
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* SECTION */
+.rounds-section {
+    padding: 3rem 0 6rem;
+}
+
+/* GRID */
+.round-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+/* CARD */
+.round-card {
+    padding: 3rem;
+    text-align: center;
+    transition: transform 0.3s ease, border 0.3s ease;
+}
+
+.round-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--neon-blue);
+}
+
+.round-card h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.round-card p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .round-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .round-card {
+        padding: 2rem;
+    }
+}

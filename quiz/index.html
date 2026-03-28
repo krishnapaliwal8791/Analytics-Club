@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Round | Quiz Portal</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/rounds.css">
+</head>
+
+<body>
+
+<div id="cursor-glow"></div>
+
+
+<main>
+
+    <!-- HEADER -->
+    <section class="hero-section rounds-hero">
+        <div class="container center">
+            <h1 class="section-title">
+                Choose Your <span class="gradient-text">Round</span>
+            </h1>
+            <p class="rounds-subtext">
+                Select the round you are participating in to begin your quiz.
+            </p>
+        </div>
+    </section>
+
+    <!-- OPTIONS -->
+    <section class="rounds-section">
+        <div class="container">
+
+            <div class="round-grid">
+
+                <!-- ROUND 1 -->
+                <div class="round-card glass">
+                    <h3>Round 1</h3>
+                    <p>Qualification round. Basic screening.</p>
+                    <a href="#" class="btn-primary" onclick="enterRound(1)">Enter Round 1</a>
+                </div>
+
+                <!-- ROUND 2 -->
+                <div class="round-card glass">
+                    <h3>Round 2</h3>
+                    <p>Final round. Advanced questions.</p>
+                    <a href="#" class="btn-primary" onclick="enterRound(2)">Enter Round 2</a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<script>
+function enterRound(round) {
+    const passwords = {
+        1: "round1pass",
+        2: "round2pass"
+    };
+
+    const input = prompt("Enter passcode for Round " + round);
+
+    if (!input) return;
+
+    if (input === passwords[round]) {
+        if(round == 1){
+            window.location.href = "Round_1"
+        } else if(round == 2){
+            window.location.href = "Round_2_"
+        } else{
+            console.log("Round not available");
+        }
+        
+    } else {
+        alert("Incorrect passcode");
+    }
+}
+</script>
+
+</body>
+</html>
