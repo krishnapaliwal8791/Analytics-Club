@@ -1,28 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
   <title>Quiz Participant</title>
 
-  <!-- Supabase CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <h1>Quiz System</h1>
+  <div class="container">
 
-  <!-- Team Name -->
-  <input id="team" placeholder="Enter team name" />
-  <button onclick="fetchQuestion()">Check Status</button>
+    <h2>⚡ Analytics Quiz</h2>
 
-  <p id="status"></p>
-  <h2 id="question"></h2>
+    <!-- LOGIN -->
+    <div id="login">
+      <input id="teamName" placeholder="Enter Team Name" />
+      <button onclick="login()">Join</button>
+    </div>
 
-  <!-- Answer Section -->
-  <div id="answerBox" style="display:none;">
-    <input type="number" step="any" id="answer" placeholder="Enter answer" />
-    <button onclick="submitAnswer()" id="submitBtn">Submit</button>
+    <!-- QUIZ -->
+    <div id="quiz" style="display:none;">
+
+      <div id="refreshBox">
+        <button onclick="loadQuestion()">🔄 Check for Next Question</button>
+      </div>
+
+      <div id="status"></div>
+
+      <!-- QUESTION -->
+      <div id="question"></div>
+
+      <!-- ANSWER -->
+      <div id="answerBox" style="display:none;">
+        <input type="number" step="any" id="answer" placeholder="Enter answer" />
+        <button onclick="submitAnswer()" id="submitBtn">Submit</button>
+      </div>
+
+    </div>
+
   </div>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
   <script>
     const supabaseObject = window.supabase.createClient(
@@ -30,17 +52,35 @@
       "sb_publishable_M5xMF2Bue8fRZjczWsQUqw_8xAttOE5"
     );
 
-    // ✅ Load saved team name
+    // 🔹 LOGIN
+    function login() {
+      const team = document.getElementById("teamName").value.trim();
+
+      if (!team) {
+        alert("Enter team name");
+        return;
+      }
+
+      localStorage.setItem("team", team);
+
+      document.getElementById("login").style.display = "none";
+      document.getElementById("quiz").style.display = "block";
+    }
+
+    // 🔹 AUTO LOAD TEAM
     window.onload = () => {
-      const savedTeam = localStorage.getItem("team");
-      if (savedTeam) {
-        document.getElementById("team").value = savedTeam;
+      const saved = localStorage.getItem("team");
+
+      if (saved) {
+        document.getElementById("teamName").value = saved;
+        document.getElementById("login").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
       }
     };
 
-    // 🔹 FETCH QUESTION
-    async function fetchQuestion() {
-      const team = document.getElementById("team").value.trim();
+    // 🔹 LOAD QUESTION (renamed from fetchQuestion)
+    async function loadQuestion() {
+      const team = localStorage.getItem("team");
       const statusEl = document.getElementById("status");
       const questionEl = document.getElementById("question");
       const answerBox = document.getElementById("answerBox");
@@ -49,9 +89,6 @@
         statusEl.innerText = "Enter team name";
         return;
       }
-
-      // save team
-      localStorage.setItem("team", team);
 
       // fetch state
       const { data: stateData, error } = await supabaseObject
@@ -88,7 +125,7 @@
         .single();
 
       if (qError) {
-        statusEl.innerText = "Error fetching question";
+        statusEl.innerText = "Question not found";
         return;
       }
 
@@ -96,8 +133,19 @@
       questionEl.innerText = questionData.text;
 
       answerBox.style.display = "block";
-      document.getElementById("answer").value = "";
       document.getElementById("submitBtn").disabled = false;
+
+      // check duplicate submission
+      const { data: existing } = await supabaseObject
+        .from("submissions")
+        .select("*")
+        .eq("question_id", active_question_id)
+        .eq("user_id", team);
+
+      if (existing && existing.length > 0) {
+        statusEl.innerText = "Already submitted";
+        document.getElementById("submitBtn").disabled = true;
+      }
     }
 
     // 🔹 SUBMIT ANSWER
@@ -107,13 +155,11 @@
       const statusEl = document.getElementById("status");
       const submitBtn = document.getElementById("submitBtn");
 
-      // validate
       if (!answer || isNaN(answer)) {
         statusEl.innerText = "Enter valid number";
         return;
       }
 
-      // re-fetch state
       const { data: stateData, error } = await supabaseObject
         .from("quiz_state")
         .select("*")
@@ -131,7 +177,6 @@
         return;
       }
 
-      // insert submission
       const { error: insertError } = await supabaseObject
         .from("submissions")
         .insert([
