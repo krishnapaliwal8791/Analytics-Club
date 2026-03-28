@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz Participant</title>
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+
+  <h1>Quiz System</h1>
+
+  <!-- Team Name -->
+  <input id="team" placeholder="Enter team name" />
+  <button onclick="fetchQuestion()">Check Status</button>
+
+  <p id="status"></p>
+  <h2 id="question"></h2>
+
+  <!-- Answer Section -->
+  <div id="answerBox" style="display:none;">
+    <input type="number" step="any" id="answer" placeholder="Enter answer" />
+    <button onclick="submitAnswer()" id="submitBtn">Submit</button>
+  </div>
+
+  <script>
+    const supabaseObject = window.supabase.createClient(
+      "https://ytrwmcyrcuhgtlltxxuw.supabase.co",
+      "sb_publishable_M5xMF2Bue8fRZjczWsQUqw_8xAttOE5"
+    );
+
+    // ✅ Load saved team name
+    window.onload = () => {
+      const savedTeam = localStorage.getItem("team");
+      if (savedTeam) {
+        document.getElementById("team").value = savedTeam;
+      }
+    };
+
+    // 🔹 FETCH QUESTION
+    async function fetchQuestion() {
+      const team = document.getElementById("team").value.trim();
+      const statusEl = document.getElementById("status");
+      const questionEl = document.getElementById("question");
+      const answerBox = document.getElementById("answerBox");
+
+      if (!team) {
+        statusEl.innerText = "Enter team name";
+        return;
+      }
+
+      // save team
+      localStorage.setItem("team", team);
+
+      // fetch state
+      const { data: stateData, error } = await supabaseObject
+        .from("quiz_state")
+        .select("*")
+        .single();
+
+      if (error) {
+        statusEl.innerText = "Error fetching state";
+        return;
+      }
+
+      const { status, active_question_id } = stateData;
+
+      if (status === "waiting") {
+        statusEl.innerText = "No active question";
+        questionEl.innerText = "";
+        answerBox.style.display = "none";
+        return;
+      }
+
+      if (status === "closed") {
+        statusEl.innerText = "Question closed";
+        questionEl.innerText = "";
+        answerBox.style.display = "none";
+        return;
+      }
+
+      // fetch question
+      const { data: questionData, error: qError } = await supabaseObject
+        .from("questions")
+        .select("*")
+        .eq("id", active_question_id)
+        .single();
+
+      if (qError) {
+        statusEl.innerText = "Error fetching question";
+        return;
+      }
+
+      statusEl.innerText = "Question is active";
+      questionEl.innerText = questionData.text;
+
+      answerBox.style.display = "block";
+      document.getElementById("answer").value = "";
+      document.getElementById("submitBtn").disabled = false;
+    }
+
+    // 🔹 SUBMIT ANSWER
+    async function submitAnswer() {
+      const team = localStorage.getItem("team");
+      const answer = document.getElementById("answer").value;
+      const statusEl = document.getElementById("status");
+      const submitBtn = document.getElementById("submitBtn");
+
+      // validate
+      if (!answer || isNaN(answer)) {
+        statusEl.innerText = "Enter valid number";
+        return;
+      }
+
+      // re-fetch state
+      const { data: stateData, error } = await supabaseObject
+        .from("quiz_state")
+        .select("*")
+        .single();
+
+      if (error) {
+        statusEl.innerText = "Error checking state";
+        return;
+      }
+
+      const { status, active_question_id } = stateData;
+
+      if (status !== "active") {
+        statusEl.innerText = "Question is no longer active";
+        return;
+      }
+
+      // insert submission
+      const { error: insertError } = await supabaseObject
+        .from("submissions")
+        .insert([
+          {
+            question_id: active_question_id,
+            user_id: team,
+            answer: parseFloat(answer)
+          }
+        ]);
+
+      if (insertError) {
+        if (insertError.message.includes("duplicate")) {
+          statusEl.innerText = "Already submitted";
+        } else {
+          statusEl.innerText = "Submission failed";
+        }
+        return;
+      }
+
+      statusEl.innerText = "Submitted successfully";
+      submitBtn.disabled = true;
+    }
+  </script>
+
+</body>
+</html>
