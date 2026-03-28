@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+</head>
+<body>
+
+<h2>Admin Panel</h2>
+
+<div>
+  <input id="questionId" placeholder="Enter Question ID" />
+  <button onclick="startQuestion()">Start Question (25s)</button>
+</div>
+
+<br>
+
+<div>
+  <button onclick="loadLeaderboard()">Show Leaderboard</button>
+</div>
+
+<br>
+
+<div id="status"></div>
+<table border="1" id="leaderboard"></table>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseObject = window.supabase.createClient(
+  "https://owygwkkolaeoxqmjific.supabase.co",
+  "sb_publishable_aY8TVwyhny8W40fsXK39jQ_MFuSgyTq"
+);
+
+// START QUESTION
+async function startQuestion() {
+  const qid = document.getElementById("questionId").value;
+
+  if (!qid) {
+    alert("Enter question ID");
+    return;
+  }
+
+  // DELETE OLD SUBMISSIONS
+  await supabaseObject
+    .from("submission")
+    .delete()
+    .eq("question_id", qid);
+
+  // START QUESTION
+  const { error } = await supabaseObject
+    .from("question")
+    .update({
+      start_time: new Date().toISOString(),
+      end_time: new Date(Date.now() + 25000).toISOString()
+    })
+    .eq("id", qid);
+
+  if (error) {
+    document.getElementById("status").innerText = "Error starting question";
+    return;
+  }
+
+  document.getElementById("status").innerText = "Question started!";
+}
+
+// LOAD LEADERBOARD
+async function loadLeaderboard() {
+  const qid = document.getElementById("questionId").value;
+
+  if (!qid) {
+    alert("Enter question ID");
+    return;
+  }
+
+  const { data, error } = await supabaseObject
+    .from("submission")
+    .select(`
+      user_id,
+      selected_option,
+      submitted_at,
+      users(name_team),
+      question(correct_option, start_time)
+    `)
+    .eq("question_id", qid);
+
+  if (error || !data) {
+    document.getElementById("status").innerText = "Error loading leaderboard";
+    return;
+  }
+
+  // PROCESS DATA
+  const processed = data.map(item => {
+    const correct = item.question.correct_option;
+    const start = new Date(item.question.start_time);
+    const submitted = new Date(item.submitted_at);
+
+    return {
+      name: item.users.name_team,
+      selected: item.selected_option,
+      isCorrect: item.selected_option === correct,
+      time: submitted - start
+    };
+  });
+
+  // SORT
+  processed.sort((a, b) => {
+    if (a.isCorrect !== b.isCorrect) return b.isCorrect - a.isCorrect;
+    return a.time - b.time;
+  });
+
+  renderLeaderboard(processed);
+}
+
+// RENDER
+function renderLeaderboard(data) {
+  let html = `
+    <tr>
+      <th>Rank</th>
+      <th>Team</th>
+      <th>Answer</th>
+      <th>Correct</th>
+      <th>Time(ms)</th>
+    </tr>
+  `;
+
+  data.forEach((row, index) => {
+    html += `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${row.name}</td>
+        <td>${row.selected}</td>
+        <td>${row.isCorrect ? "Yes" : "No"}</td>
+        <td>${row.time}</td>
+      </tr>
+    `;
+  });
+
+  document.getElementById("leaderboard").innerHTML = html;
+}
+</script>
+
+</body>
+</html>
