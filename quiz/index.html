@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Participant</title>
+
+  <!-- Mobile responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <h2>⚡ Analytics Quiz</h2>
+
+    <!-- LOGIN -->
+    <div id="login">
+      <input id="teamName" placeholder="Enter Team Name" />
+      <button onclick="login()">Join</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="quiz" style="display:none;">
+      <div id="refreshBox">
+  <button onclick="loadQuestion()">🔄 Check for Next Question</button>
+</div>
+      
+      <div id="status"></div>
+      <div id="options"></div>
+    </div>
+
+  </div>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Your logic -->
+  <script src="quiz.js"></script>
+
+</body>
+</html>
